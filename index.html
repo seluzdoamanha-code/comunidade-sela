@@ -5,199 +5,536 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Luz do Amanhã</title>
     
-    <!-- Metatags -->
     <meta property="og:title" content="Luz do Amanhã">
-    <meta property="og:description" content="Bem-vindo à Luz do Amanhã. Acesse nossos serviços de Irradiação e a Biblioteca.">
-    <meta property="og:image" content="https://luzdoamanha.org.br/logo_sela.png">
+    <meta property="og:description" content="Bem-vindo à Luz do Amanhã. Conhecimento, Consolação e Esperança.">
+    <meta property="og:image" content="https://luzdoamanha.org.br/logo_sela_color.png">
     
-    <!-- Favicon (Ícone da aba) -->
-    <link rel="icon" type="image/png" href="logo_sela.png">
-    <link rel="apple-touch-icon" href="logo_sela.png">
+    <link rel="icon" type="image/png" href="logo_sela_color.png">
+    <link rel="apple-touch-icon" href="logo_sela_color.png">
     
-    <!-- Fontes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-dark: #0a0a0a;
-            --card-bg: rgba(26, 26, 26, 0.7);
+            /* Tema Céu Sereno (Azul Escuro) */
+            --bg-dark: #0f172a;
+            --bg-panel: rgba(30, 41, 59, 0.6);
             --border: rgba(255, 255, 255, 0.1);
-            --primary: #4ade80;
-            --text-main: #ffffff;
-            --text-muted: #a1a1aa;
+            --primary: #38bdf8;
+            --primary-glow: rgba(56, 189, 248, 0.2);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --gold: #fbbf24;
+            --gold-glow: rgba(251, 191, 36, 0.15);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        
+        html { scroll-behavior: smooth; }
 
         body {
             background-color: var(--bg-dark);
             color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        /* Hero Background Effects */
+        .hero-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100vh;
+            overflow: hidden;
+            z-index: -1;
+            background: var(--bg-dark);
+        }
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            top: -20%; left: 10%; width: 600px; height: 600px;
+            background: radial-gradient(circle, var(--gold-glow) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(80px);
+            animation: pulse 8s infinite alternate ease-in-out;
+        }
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            bottom: -10%; right: -10%; width: 800px; height: 800px;
+            background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(100px);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1) translate(0, 0); opacity: 0.6; }
+            100% { transform: scale(1.1) translate(30px, 20px); opacity: 1; }
+        }
+
+        /* Container Padrão */
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+        /* HEADER / NAVBAR */
+        header {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            padding: 20px 0;
+            z-index: 100;
+            background: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+        header.scrolled {
+            padding: 12px 0;
+            background: rgba(15, 23, 42, 0.85);
+            border-bottom: 1px solid var(--border);
+        }
+        .nav-content { display: flex; align-items: center; justify-content: space-between; }
+        .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: white; font-weight: 600; font-size: 1.1rem; }
+        .nav-logo img { height: 36px; border-radius: 50%; object-fit: contain; }
+        
+        .nav-links { display: flex; gap: 32px; align-items: center; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover { color: white; }
+        .nav-btn { background: rgba(255,255,255,0.1); border-radius: 8px; padding: 8px 16px; border: 1px solid var(--border); color: white!important; }
+        .nav-btn:hover { background: rgba(255,255,255,0.15); }
+
+        /* HERO SECTION */
+        .hero {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
-            background-image: 
-                radial-gradient(circle at 15% 50%, rgba(74, 222, 128, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 85% 30%, rgba(56, 189, 248, 0.05) 0%, transparent 50%);
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 800px;
-            width: 100%;
+            align-items: center;
             text-align: center;
-            z-index: 1;
+            padding-top: 80px;
+        }
+        
+        .badge {
+            background: rgba(251, 191, 36, 0.1);
+            color: var(--gold);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 32px;
         }
 
-        .logo {
-            max-width: 120px;
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            line-height: 1.1;
             margin-bottom: 24px;
-            border-radius: 50%;
-            box-shadow: 0 0 40px rgba(74, 222, 128, 0.15);
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 16px;
-            background: linear-gradient(135deg, #fff 0%, #a1a1aa 100%);
+            font-weight: 600;
+            background: linear-gradient(135deg, #ffffff 0%, #94a3b8 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            max-width: 900px;
         }
-
-        p.subtitle {
-            font-size: 1.1rem;
+        
+        .hero p {
+            font-size: 1.25rem;
             color: var(--text-muted);
+            max-width: 700px;
             margin-bottom: 48px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
             line-height: 1.6;
         }
 
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-            padding: 20px;
+        .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+        
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+        .btn-primary {
+            background: var(--text-main);
+            color: var(--bg-dark);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255,255,255,0.1);
+        }
+        .btn-secondary {
+            background: var(--bg-panel);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+        }
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.05);
+            border-color: rgba(255,255,255,0.2);
         }
 
-        .card {
-            background: var(--card-bg);
+        /* MISSÃO / BOAS VINDAS */
+        .section-padding { padding: 120px 0; }
+        
+        .mission-block {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .mission-block h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 32px;
+            color: white;
+        }
+        .mission-block p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+
+        /* PALESTRAS EM DESTAQUE */
+        .lectures-banner {
+            background: var(--bg-panel);
             border: 1px solid var(--border);
             border-radius: 16px;
-            padding: 32px 24px;
-            text-decoration: none;
-            color: var(--text-main);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            padding: 40px;
+            text-align: center;
+            margin-top: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(12px);
+        }
+        .lectures-banner::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--gold);
+        }
+        .lectures-banner h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 16px;
+        }
+        .lectures-banner p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+        .lecture-days {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        .day-badge {
+            background: rgba(251, 191, 36, 0.1);
+            color: var(--gold);
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, transparent 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
+        /* PILARES / SERVIÇOS */
+        .grid-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-top: 64px;
         }
-
-        .card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(255,255,255,0.2);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
-
-        .card:hover::before {
-            opacity: 1;
-        }
-
-        .card-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
+        
+        .feature-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 40px 32px;
+            text-align: left;
+            transition: all 0.3s;
+            backdrop-filter: blur(12px);
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
             display: block;
         }
-
-        .card h2 {
-            font-size: 1.5rem;
-            margin-bottom: 12px;
-            font-weight: 600;
+        .feature-card::before {
+            content: '';
+            position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            opacity: 0; transition: opacity 0.3s;
         }
-
-        .card p {
+        .feature-card:hover {
+            transform: translateY(-8px);
+            background: rgba(30,41,59,0.8);
+            border-color: rgba(255,255,255,0.15);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        .feature-card:hover::before { opacity: 1; }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 24px;
+            display: inline-block;
+        }
+        .feature-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+            color: white;
+        }
+        .feature-card p {
             color: var(--text-muted);
             font-size: 0.95rem;
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
-        .footer {
-            margin-top: 60px;
-            font-size: 0.85rem;
+        /* BANNER DE CITAÇÃO */
+        .quote-banner {
+            margin: 60px 0;
+            padding: 80px 24px;
+            background: linear-gradient(to right, rgba(15,23,42,0.8), rgba(15,23,42,0.8)), url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjMDkwOTA5Ij48L3JlY3Q+CjxwYXRoIGQ9Ik0wIDBMOCA4Wk04IDBMMCA4WiIgc3Ryb2tlPSIjMWExYTFhIiBzdHJva2Utd2lkdGg9IjEiPjwvcGF0aD4KPC9zdmc+');
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+        }
+        .quote-banner h2 {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 2.5rem;
+            color: var(--primary);
+            font-weight: 400;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.4;
+        }
+
+        /* IRRADIAÇÃO DESTAQUE */
+        .irradiation-section {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            padding: 80px 0;
+        }
+        .irradiation-content { flex: 1; }
+        .irradiation-content h2 { font-size: 2.5rem; font-family: 'Playfair Display', serif; margin-bottom: 24px; color: white; }
+        .irradiation-content p { color: var(--text-muted); font-size: 1.1rem; line-height: 1.7; margin-bottom: 32px; }
+        .irradiation-visual { flex: 1; display: flex; justify-content: center; position: relative; }
+        
+        .glow-circle {
+            width: 300px; height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.2) 0%, transparent 70%);
+            border: 1px solid rgba(56, 189, 248, 0.1);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 5rem;
+            animation: float 6s ease-in-out infinite;
+            box-shadow: inset 0 0 40px rgba(56, 189, 248, 0.1), 0 0 60px rgba(56, 189, 248, 0.05);
+        }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 60px 0 40px;
+            background: rgba(15,23,42,0.8);
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        .footer-col h4 { color: white; margin-bottom: 20px; font-size: 1.1rem; }
+        .footer-col p, .footer-col a { color: var(--text-muted); line-height: 1.6; font-size: 0.95rem; text-decoration: none; display: block; margin-bottom: 12px; transition: color 0.2s; }
+        .footer-col a:hover { color: white; }
+        
+        /* Destaque para o endereço */
+        .address-box {
+            background: rgba(255,255,255,0.05);
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            margin-top: 8px;
+        }
+        .address-box p { margin-bottom: 0; color: white; font-weight: 500; }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255,255,255,0.05);
             color: var(--text-muted);
-            opacity: 0.7;
+            font-size: 0.85rem;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
         }
 
-        @media (max-width: 600px) {
-            h1 { font-size: 2rem; }
-            .cards-grid { grid-template-columns: 1fr; padding: 0; }
+        /* MOBILE */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3rem; }
+            .irradiation-section { flex-direction: column; text-align: center; }
+            .nav-links { display: none; }
+            .quote-banner h2 { font-size: 1.8rem; }
+            .section-padding { padding: 80px 0; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <img src="logo_sela.png" alt="Logo SELA" class="logo">
-        <h1>Luz do Amanhã</h1>
-        <p class="subtitle">Bem-vindo à Luz do Amanhã. Abaixo você pode dispor de alguns dos nossos serviços.</p>
-        
-        <div class="cards-grid">
-            <a href="irradiacao/index.html" class="card">
-                <span class="card-icon">✨</span>
-                <h2>Irradiação</h2>
-                <p>Faça solicitações de tratamento espiritual à distância para você ou seus entes queridos.</p>
+    <div class="hero-bg"></div>
+
+    <header id="header">
+        <div class="container nav-content">
+            <a href="#" class="nav-logo">
+                <img src="logo_sela_color.png" alt="Logo">
+                Luz do Amanhã
             </a>
-
-            <a href="biblioteca/index.html" class="card">
-                <span class="card-icon">📚</span>
-                <h2>Biblioteca</h2>
-                <p>Explore nosso acervo físico. Veja livros disponíveis para empréstimo, permuta e desiderata.</p>
-            </a>
+            <div class="nav-links">
+                <a href="#missao">Nossa Missão</a>
+                <a href="#atividades">Atividades</a>
+                <a href="biblioteca/index.html">Biblioteca</a>
+                <a href="irradiacao/index.html" class="nav-btn">Solicitar Irradiação</a>
+            </div>
         </div>
+    </header>
 
-        <div style="margin-top: 40px;">
-            <a href="https://portal.luzdoamanha.org.br" class="card" style="max-width: 400px; margin: 0 auto; border-color: rgba(56, 189, 248, 0.3);">
-                <span class="card-icon" style="font-size: 2rem; margin-bottom: 12px;">🔒</span>
-                <h2 style="font-size: 1.2rem; color: #38bdf8;">Portal SELA</h2>
-                <p>Você trabalhador acesse nosso Portal de Atividades.</p>
-            </a>
+    <main>
+        <!-- HERO -->
+        <section class="hero container">
+            <div class="badge">Acolhimento • Estudo • Trabalho no Bem</div>
+            <h1>Conhecimento, Consolação e Esperança</h1>
+            <p>A Sociedade Espírita Luz do Amanhã é um espaço de estudo, acolhimento e vivência dos ensinamentos espíritas, promovendo o crescimento espiritual, a fraternidade e o serviço ao próximo.</p>
+            
+            <div class="hero-actions">
+                <a href="#missao" class="btn btn-primary">Conheça a Casa</a>
+                <a href="irradiacao/index.html" class="btn btn-secondary">Solicite Irradiação</a>
+            </div>
+        </section>
+
+        <!-- MISSÃO & ATIVIDADES -->
+        <section id="missao" class="section-padding container" style="border-top: 1px solid var(--border);">
+            <div class="mission-block">
+                <h2>Seja bem-vindo.</h2>
+                <p>Aqui buscamos estudar, compreender e vivenciar os ensinamentos de Jesus à luz da Doutrina Espírita, promovendo o esclarecimento, o consolo e a transformação moral.</p>
+                <p>Nossa Casa oferece palestras públicas, estudos doutrinários, evangelização, atividades de irradiação espiritual, atendimento fraterno e projetos voltados ao desenvolvimento humano e espiritual.</p>
+                <p style="color: white; font-weight: 500; margin-top: 32px;">Sinta-se convidado a conhecer nossas atividades, participar de nossos encontros e caminhar conosco na construção de um futuro mais iluminado para todos.</p>
+            </div>
+            
+            <!-- Banner de Palestras -->
+            <div class="lectures-banner">
+                <h3>Palestras Públicas</h3>
+                <p>Momentos de reflexão, consolo e aprendizado do Evangelho. Aberto a todos!</p>
+                <div class="lecture-days">
+                    <div class="day-badge"><span>🗓️</span> Terças-feiras, às 19h30</div>
+                    <div class="day-badge"><span>🗓️</span> Quintas-feiras, às 19h30</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PILARES / SERVIÇOS -->
+        <section id="atividades" class="section-padding" style="background: rgba(255,255,255,0.02);">
+            <div class="container">
+                <div style="text-align: center; margin-bottom: 48px;">
+                    <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 16px; color: white;">Por que visitar a Luz do Amanhã?</h2>
+                    <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">Nossos pilares de atuação para o auxílio e desenvolvimento espiritual.</p>
+                </div>
+
+                <div class="grid-features">
+                    <div class="feature-card">
+                        <span class="feature-icon">📖</span>
+                        <h3>Estudo</h3>
+                        <p>Aprofunde seus conhecimentos sobre a Doutrina Espírita e o Evangelho de Jesus em nossos grupos de estudo.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <span class="feature-icon">🤝</span>
+                        <h3>Acolhimento</h3>
+                        <p>Encontre um ambiente fraterno, respeitoso e aberto ao diálogo através do Atendimento Fraterno.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <span class="feature-icon">🕊️</span>
+                        <h3>Trabalho no Bem</h3>
+                        <p>Participe de atividades que promovem auxílio espiritual, caridade e crescimento pessoal.</p>
+                    </div>
+
+                    <a href="biblioteca/index.html" class="feature-card">
+                        <span class="feature-icon">📚</span>
+                        <h3>Biblioteca</h3>
+                        <p>Conheça a Biblioteca Dilamar Abreu e descubra centenas de obras para estudo e leitura. Clique para acessar.</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- BANNER DE CITAÇÃO -->
+        <section class="quote-banner">
+            <h2>"A verdadeira luz nasce do conhecimento aliado ao amor."</h2>
+        </section>
+
+        <!-- IRRADIAÇÃO -->
+        <section class="container section-padding">
+            <div class="irradiation-section">
+                <div class="irradiation-content">
+                    <div class="badge" style="display: inline-block; margin-bottom: 16px;">Assistência Espiritual</div>
+                    <h2>Irradiação Espiritual</h2>
+                    <p>Precisa de uma prece? Deseja incluir alguém em nossas atividades de Irradiação Espiritual? Por meio de nosso formulário, você pode encaminhar seu pedido de forma simples e organizada.</p>
+                    <p>Estamos unidos em oração, vibrando pela paz, pelo equilíbrio e pelo fortalecimento espiritual de todos os que necessitam.</p>
+                    <a href="irradiacao/index.html" class="btn btn-primary" style="margin-top: 16px;">Enviar Pedido de Irradiação</a>
+                </div>
+                <div class="irradiation-visual">
+                    <div class="glow-circle">✨</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <img src="logo_sela_color.png" alt="Logo" style="height: 64px; object-fit: contain; margin-bottom: 16px;">
+                    <p style="max-width: 250px;">Promovendo o estudo e a divulgação da Doutrina Espírita.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Links Rápidos</h4>
+                    <a href="#missao">Nossa Missão</a>
+                    <a href="biblioteca/index.html">Biblioteca</a>
+                    <a href="irradiacao/index.html">Irradiação Espiritual</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Nossa Casa</h4>
+                    <p>Fique atento à nossa programação semanal e venha nos visitar.</p>
+                    <div class="address-box">
+                        <p>📍 Rua 706, 1243 - Várzea<br>CEP 88220-000<br>Itapema / SC</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div>&copy; 2026 Sociedade Espírita Luz do Amanhã. Todos os direitos reservados.</div>
+                <a href="https://portal.luzdoamanha.org.br" style="color: var(--text-muted); text-decoration: none; font-size: 0.8rem; border: 1px solid var(--border); padding: 4px 12px; border-radius: 4px; display: inline-flex; align-items: center; gap: 6px;">
+                    <span>🔒</span> Portal SELA (Trabalhadores)
+                </a>
+            </div>
         </div>
+    </footer>
 
-
-        <div class="footer">
-            &copy; 2026 Sociedade Espírita Luz do Amanhã
-        </div>
-    </div>
-
+    <script>
+        // Efeito simples de blur no Header ao scrollar
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
 </body>
 </html>
