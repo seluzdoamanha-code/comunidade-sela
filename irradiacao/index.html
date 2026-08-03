@@ -207,9 +207,13 @@
             <div class="form-group">
                 <label for="inNome">Nome(s) Completo(s) do(s) Necessitado(s) *</label>
                 <input type="text" id="inNome" class="input-field" required placeholder="EX: MARIA DA SILVA --- JOSÉ DA SILVA" style="width: 100%; box-sizing: border-box; text-transform: uppercase;">
+                <label style="display: flex; align-items: center; gap: 8px; margin-top: 12px; cursor: pointer;">
+                    <input type="checkbox" id="chkDesencarnado" onchange="toggleDesencarnado(this.checked)" style="width: 18px; height: 18px; accent-color: var(--primary);">
+                    <span style="font-size: 14px; font-weight: 500; color: #facc15;">Este nome é de uma pessoa desencarnada (falecida)</span>
+                </label>
             </div>
             
-            <div class="form-group">
+            <div class="form-group" id="groupEndereco">
                 <label>Endereço Completo</label>
                 <input type="text" id="inEndereco" class="input-field" placeholder="RUA, NÚMERO, BAIRRO, CIDADE" style="width: 100%; box-sizing: border-box; text-transform: uppercase;">
             </div>
@@ -285,12 +289,46 @@
             }, 10);
         }
 
+        function toggleDesencarnado(isDesencarnado) {
+            const inputEndereco = document.getElementById('inEndereco');
+            const groupEndereco = document.getElementById('groupEndereco');
+            const chkQuartaDesencarnado = document.querySelector('input[value="Quarta-feira (Desencarnado)"]');
+            
+            if (isDesencarnado) {
+                inputEndereco.disabled = true;
+                inputEndereco.value = '';
+                inputEndereco.placeholder = 'NÃO É NECESSÁRIO PARA DESENCARNADOS';
+                groupEndereco.style.opacity = '0.5';
+                
+                // Força o dia Quarta-feira (Desencarnado)
+                if (chkQuartaDesencarnado && !chkQuartaDesencarnado.checked) {
+                    chkQuartaDesencarnado.checked = true;
+                    chkQuartaDesencarnado.parentElement.classList.add('selected');
+                }
+            } else {
+                inputEndereco.disabled = false;
+                inputEndereco.placeholder = 'RUA, NÚMERO, BAIRRO, CIDADE';
+                groupEndereco.style.opacity = '1';
+                
+                // Desmarca se o usuário desmarcou desencarnado
+                if (chkQuartaDesencarnado && chkQuartaDesencarnado.checked) {
+                    chkQuartaDesencarnado.checked = false;
+                    chkQuartaDesencarnado.parentElement.classList.remove('selected');
+                }
+            }
+        }
+
         document.getElementById('formIrradiacao').addEventListener('submit', async (e) => {
             e.preventDefault();
 
             const btn = document.getElementById('btnSubmit');
-            const nome = document.getElementById('inNome').value.toUpperCase();
+            let nome = document.getElementById('inNome').value.toUpperCase();
             const endereco = document.getElementById('inEndereco').value.toUpperCase();
+            const isDesencarnado = document.getElementById('chkDesencarnado').checked;
+            
+            if (isDesencarnado) {
+                nome = "[DESENCARNADO] " + nome;
+            }
             
             const checkboxes = document.querySelectorAll('.chk-dia:checked');
             const dias = Array.from(checkboxes).map(c => c.value);
@@ -342,6 +380,7 @@
         function novaSolicitacao() {
             document.getElementById('formIrradiacao').reset();
             document.querySelectorAll('.tag-checkbox-ui').forEach(el => el.classList.remove('selected'));
+            toggleDesencarnado(false);
             document.getElementById('formIrradiacao').style.display = 'block';
             document.getElementById('panelSuccess').style.display = 'none';
             lastInsertedIds = []; // Limpa memória
