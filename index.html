@@ -362,6 +362,14 @@
             border-radius: 8px;
             border: 1px solid var(--border);
             margin-top: 8px;
+            display: block;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .address-box:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
         }
         .address-box p { margin-bottom: 0; color: white; font-weight: 500; }
         
@@ -424,49 +432,69 @@
                 <p>Nossa Casa oferece palestras públicas, estudos doutrinários, evangelização, atividades de irradiação espiritual, atendimento fraterno e projetos voltados ao desenvolvimento humano e espiritual.</p>
                 <p style="color: white; font-weight: 500; margin-top: 32px;">Sinta-se convidado a conhecer nossas atividades, participar de nossos encontros e caminhar conosco na construção de um futuro mais iluminado para todos.</p>
             </div>
-            
-            <!-- Banner de Palestras -->
-            <div class="lectures-banner">
-                <h3>Palestras Públicas</h3>
-                <p>Momentos de reflexão, consolo e aprendizado do Evangelho. Aberto a todos!</p>
-                <div class="lecture-days">
-                    <div class="day-badge"><span>🗓️</span> Terças-feiras, às 19h30</div>
-                    <div class="day-badge"><span>🗓️</span> Quintas-feiras, às 19h30</div>
-                </div>
-            </div>
         </section>
 
         <!-- PILARES / SERVIÇOS -->
         <section id="atividades" class="section-padding" style="background: rgba(255,255,255,0.02);">
             <div class="container">
                 <div style="text-align: center; margin-bottom: 48px;">
-                    <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 16px; color: white;">Por que visitar a Luz do Amanhã?</h2>
-                    <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">Nossos pilares de atuação para o auxílio e desenvolvimento espiritual.</p>
+                    <div class="badge" style="display: inline-block; margin-bottom: 16px;">Programação</div>
+                    <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 16px; color: white;">Atividades da Casa</h2>
+                    <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">Confira os dias e horários dos nossos encontros. Todos são muito bem-vindos!</p>
                 </div>
 
                 <div class="grid-features">
                     <div class="feature-card">
+                        <span class="feature-icon">🗣️</span>
+                        <h3>Palestras Públicas</h3>
+                        <p style="color: var(--gold); font-weight: 500; margin-bottom: 8px;">Terças e Quintas-feiras</p>
+                        <p>Das 19h30 às 20h30</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <span class="feature-icon">👦</span>
+                        <h3>Evangelização Infantil e Juvenil</h3>
+                        <p style="color: var(--gold); font-weight: 500; margin-bottom: 8px;">Terças-feiras</p>
+                        <p>Às 18h30</p>
+                    </div>
+                    
+                    <div class="feature-card">
                         <span class="feature-icon">📖</span>
-                        <h3>Estudo</h3>
-                        <p>Aprofunde seus conhecimentos sobre a Doutrina Espírita e o Evangelho de Jesus em nossos grupos de estudo.</p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <span class="feature-icon">🤝</span>
-                        <h3>Acolhimento</h3>
-                        <p>Encontre um ambiente fraterno, respeitoso e aberto ao diálogo através do Atendimento Fraterno.</p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <span class="feature-icon">🕊️</span>
-                        <h3>Trabalho no Bem</h3>
-                        <p>Participe de atividades que promovem auxílio espiritual, caridade e crescimento pessoal.</p>
+                        <h3>Estudos Presenciais</h3>
+                        <p style="color: var(--gold); font-weight: 500; margin-bottom: 8px;">Segundas-feiras</p>
+                        <p>Às 19h30</p>
                     </div>
 
-                    <a href="biblioteca/index.html" class="feature-card">
-                        <span class="feature-icon">📚</span>
-                        <h3>Biblioteca</h3>
-                        <p>Conheça a Biblioteca Dilamar Abreu e descubra centenas de obras para estudo e leitura. Clique para acessar.</p>
+                    <div class="feature-card">
+                        <span class="feature-icon">💻</span>
+                        <h3>Estudos Online</h3>
+                        <p style="color: var(--gold); font-weight: 500; margin-bottom: 8px;">Sextas-feiras</p>
+                        <p>Às 19h30</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <span class="feature-icon">🤝</span>
+                        <h3>Atendimento Fraterno</h3>
+                        <p style="color: var(--gold); font-weight: 500; margin-bottom: 8px;">Terças e Quintas-feiras</p>
+                        <p>Após as palestras públicas</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <span class="feature-icon">❤️</span>
+                        <h3>Ações Sociais</h3>
+                        <ul style="color: var(--text-muted); padding-left: 20px; font-size: 0.95rem; line-height: 1.6; margin-top: 8px;">
+                            <li>Entrega de cestas: 2º sábado do mês</li>
+                            <li>Visita ao asilo: Último sábado do mês</li>
+                            <li>Arrecadação de alimentos não perecíveis</li>
+                        </ul>
+                    </div>
+                    
+                    <a href="biblioteca/index.html" class="feature-card" style="grid-column: 1 / -1; display: flex; align-items: center; gap: 24px; padding: 24px 32px;">
+                        <span class="feature-icon" style="margin-bottom: 0;">📚</span>
+                        <div>
+                            <h3 style="margin-bottom: 4px;">Biblioteca e Livraria</h3>
+                            <p>Conheça a Biblioteca Dilamar Abreu e descubra centenas de obras para estudo e leitura. Clique para acessar.</p>
+                        </div>
                     </a>
                 </div>
             </div>
@@ -501,19 +529,30 @@
                 <div class="footer-col">
                     <img src="logo_sela_color.png" alt="Logo" style="height: 64px; object-fit: contain; margin-bottom: 16px;">
                     <p style="max-width: 250px;">Promovendo o estudo e a divulgação da Doutrina Espírita.</p>
+                    <div style="margin-top: 16px; font-size: 0.9rem; color: var(--text-muted); background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px; border: 1px solid var(--border); display: inline-block;">
+                        <p style="margin-bottom: 6px; color: var(--text-muted);"><strong>CNPJ:</strong> 07.032.176/0001-74</p>
+                        <p style="margin-bottom: 0; color: var(--gold);"><strong style="color: var(--text-muted);">PIX (CNPJ):</strong> 07032176000174</p>
+                    </div>
                 </div>
                 <div class="footer-col">
-                    <h4>Links Rápidos</h4>
-                    <a href="#missao">Nossa Missão</a>
-                    <a href="biblioteca/index.html">Biblioteca</a>
-                    <a href="irradiacao/index.html">Irradiação Espiritual</a>
+                    <h4>Contato</h4>
+                    <a href="https://wa.me/5547992113498" target="_blank" title="Falar no WhatsApp" style="margin-bottom: 8px;">📱 (47) 99211-3498</a>
+                    <a href="mailto:luzdoamanhasc@gmail.com" style="margin-bottom: 8px;">✉️ luzdoamanhasc@gmail.com</a>
+                    <a href="mailto:seluzdoamanha@outlook.com" style="margin-bottom: 8px;">✉️ seluzdoamanha@outlook.com</a>
+                    <div style="display: flex; gap: 12px; margin-top: 16px; margin-bottom: 8px;">
+                        <a href="https://instagram.com/luzdoamanhasc" target="_blank" title="Instagram" style="font-size: 1.5rem; display: inline;">📷</a>
+                        <a href="https://facebook.com/luzdoamanhasc" target="_blank" title="Facebook" style="font-size: 1.5rem; display: inline;">📘</a>
+                        <a href="https://youtube.com/@luzdoamanhasc" target="_blank" title="YouTube" style="font-size: 1.5rem; display: inline;">▶️</a>
+                    </div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">@luzdoamanhasc</p>
                 </div>
                 <div class="footer-col">
                     <h4>Nossa Casa</h4>
-                    <p>Fique atento à nossa programação semanal e venha nos visitar.</p>
-                    <div class="address-box">
+                    <p>Fique atento à nossa programação e venha nos visitar.</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Sociedade+Espírita+Luz+do+Amanhã+Itapema+SC" target="_blank" class="address-box">
                         <p>📍 Rua 706, 1243 - Várzea<br>CEP 88220-000<br>Itapema / SC</p>
-                    </div>
+                        <p style="color: var(--primary); font-size: 0.85rem; margin-top: 16px; font-weight: 600;">🗺️ Abrir no Google Maps</p>
+                    </a>
                 </div>
             </div>
             <div class="footer-bottom">
